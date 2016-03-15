@@ -8,7 +8,7 @@ This Device is available from ControlEverything.com [SKU: MMC3316xMT_I2CS]
 
 https://www.controleverything.com/content/Magnetic-Sensor?sku=MMC3316xMT_I2CS
 
-This Sample code can be used with Raspberry pi, Arduino and Particle.
+This Sample code can be used with Raspberry pi and Arduino.
 
 ## Java
 Download and install pi4j library on Raspberry pi. Steps to install pi4j are provided at:
