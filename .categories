@@ -1,4 +1,5 @@
 lang:java
 lang:python
 lang:arduino
+lang:particle
 sku:MMC3316xMT_I2CS
