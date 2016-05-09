@@ -69,10 +69,10 @@ Download (or git pull) the code in Beaglebone Black.
 
 Compile the c program.
 ```cpp
-$>gcc A3G4250DTR.c -o A3G4250DTR
+$>gcc MMC3316xMT.c -o MMC3316xMT
 ```
 Run the c program.
 ```cpp
-$>./A3G4250DTR
+$>./MMC3316xMT
 ```
 #####The code output is the raw values of magnetic field in X, Y and Z axis.
