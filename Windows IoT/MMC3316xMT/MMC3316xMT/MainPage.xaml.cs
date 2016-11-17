@@ -67,9 +67,9 @@ namespace MMC3316xMT
 				The first byte is the register address we want to write to
 				The second byte is the contents that we want to write to the register
 			*/
-			byte[] WriteBuf_SetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x23 };	// 0x23 sets the sensor, intiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
+			byte[] WriteBuf_SetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x23 };	// 0x23 sets the sensor, initiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
 			byte[] WriteBuf_NoSetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x00 };	// 0x00 writes No Set to sensor
-			byte[] WriteBuf_ResetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x43 };	// 0x43 resets the sensor, intiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
+			byte[] WriteBuf_ResetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x43 };	// 0x43 resets the sensor, initiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
 
 			// Write the register settings
 			try
@@ -143,7 +143,7 @@ namespace MMC3316xMT
 				In order to get the raw 14-bit data values, we need to concatenate two 8-bit bytes from the I2C read for each axis
 			*/
 			int MAGRawX = (int)(ReadBuf[0] & 0xFF);
-			MAGRawX |= (int)((ReadBuf[2] & 0x3F) * 256);
+			MAGRawX |= (int)((ReadBuf[1] & 0x3F) * 256);
 			if (MAGRawX > 8191)
 			{
 				MAGRawX -= 16384;
