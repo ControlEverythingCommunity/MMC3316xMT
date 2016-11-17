@@ -18,11 +18,11 @@ namespace MMC3316xMT
 	// App that reads data over I2C from a MMC3316xMT, 3-Axis Magnetic Sensor
 	public sealed partial class MainPage : Page
 	{
-		private const byte MAG_I2C_ADDR = 0x30;				// I2C address of the MMC3316xMT
-		private const byte MAG_REG_CONTROL0 = 0x07;			// Internal Control 0 register
-		private const byte MAG_REG_X = 0x00;				// X Axis Low data register
-		private const byte MAG_REG_Y = 0x02;				// Y Axis Low data register
-		private const byte MAG_REG_Z = 0x04;				// Z Axis Low data register
+		private const byte MAG_I2C_ADDR = 0x30;		// I2C address of the MMC3316xMT
+		private const byte MAG_REG_CONTROL0 = 0x07;	// Internal Control 0 register
+		private const byte MAG_REG_X = 0x00;		// X Axis Low data register
+		private const byte MAG_REG_Y = 0x02;		// Y Axis Low data register
+		private const byte MAG_REG_Z = 0x04;		// Z Axis Low data register
 
 		private I2cDevice I2CMag;
 		private Timer periodicTimer;
@@ -40,7 +40,7 @@ namespace MMC3316xMT
 
 		private async void InitI2CMag()
 		{
-			string aqs = I2cDevice.GetDeviceSelector();				// Get a selector string that will return all I2C controllers on the system
+			string aqs = I2cDevice.GetDeviceSelector();		// Get a selector string that will return all I2C controllers on the system
 			var dis = await DeviceInformation.FindAllAsync(aqs);	// Find the I2C bus controller device with our selector string
 			if (dis.Count == 0)
 			{
@@ -56,8 +56,8 @@ namespace MMC3316xMT
 				Text_Status.Text = string.Format(
 					"Slave address {0} on I2C Controller {1} is currently in use by " +
 					"another application. Please ensure that no other applications are using I2C.",
-					settings.SlaveAddress,
-					dis[0].Id);
+				settings.SlaveAddress,
+				dis[0].Id);
 				return;
 			}
 
@@ -67,9 +67,9 @@ namespace MMC3316xMT
 				The first byte is the register address we want to write to
 				The second byte is the contents that we want to write to the register
 			*/
-			byte[] WriteBuf_SetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x23 };		// 0x23 sets the sensor, intiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
-			byte[] WriteBuf_NoSetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x00 };		// 0x00 writes No Set to sensor
-			byte[] WriteBuf_ResetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x43 };		// 0x43 resets the sensor, intiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
+			byte[] WriteBuf_SetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x23 };	// 0x23 sets the sensor, intiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
+			byte[] WriteBuf_NoSetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x00 };	// 0x00 writes No Set to sensor
+			byte[] WriteBuf_ResetCtrl0 = new byte[] { MAG_REG_CONTROL0, 0x43 };	// 0x43 resets the sensor, intiates the measurement, enables continuous conversion mode and CM Frequency is 50 Hz
 
 			// Write the register settings
 			try
@@ -131,7 +131,7 @@ namespace MMC3316xMT
 		private MagneticSensor ReadI2CMag()
 		{
 			byte[] RegAddrBuf = new byte[] { MAG_REG_X };	// Read data from the register address
-			byte[] ReadBuf = new byte[6];					// We read 6 bytes sequentially to get X-Axis and all 3 two-byte axes registers in one read
+			byte[] ReadBuf = new byte[6];			// We read 6 bytes sequentially to get X-Axis and all 3 two-byte axes registers in one read
 
 			/*
 				Read from the 3-Axis Magnetic Sensor 
@@ -148,12 +148,14 @@ namespace MMC3316xMT
 			{
 				MAGRawX -= 16384;
 			}
+			
 			int MAGRawY = (int)(ReadBuf[2] & 0xFF);
 			MAGRawY |= (int)((ReadBuf[3] & 0x3F) * 256);
 			if (MAGRawY > 8191)
 			{
 				MAGRawY -= 16384;
 			}
+			
 			int MAGRawZ = (int)(ReadBuf[4] & 0xFF);
 			MAGRawZ |= (int)((ReadBuf[5] & 0x3F) * 256);
 			if (MAGRawZ > 8191)
@@ -170,4 +172,3 @@ namespace MMC3316xMT
 		}
 	}
 }
-
